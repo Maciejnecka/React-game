@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mapConfig } from './config';
 
 export const MapContainer = styled.div`
   width: 500px;
@@ -13,8 +14,8 @@ export const MapContainer = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(25, 1fr);
-  grid-template-rows: repeat(25, 1fr);
+  grid-template-columns: repeat(${mapConfig.width}, 1fr);
+  grid-template-rows: repeat(${mapConfig.height}, 1fr);
   width: 100%;
   height: 100%;
 `;

@@ -1,3 +1,5 @@
+import { mapConfig } from '../Map/config';
+
 let playerPosition = { x: 0, y: 0 };
 
 const movePlayer = (direction) => {
@@ -6,13 +8,13 @@ const movePlayer = (direction) => {
       if (playerPosition.y > 0) playerPosition.y -= 1;
       break;
     case 'ArrowDown':
-      if (playerPosition.y < 24) playerPosition.y += 1;
+      if (playerPosition.y < mapConfig.height - 1) playerPosition.y += 1;
       break;
     case 'ArrowLeft':
       if (playerPosition.x > 0) playerPosition.x -= 1;
       break;
     case 'ArrowRight':
-      if (playerPosition.x < 24) playerPosition.x += 1;
+      if (playerPosition.x < mapConfig.width - 1) playerPosition.x += 1;
       break;
     default:
       break;

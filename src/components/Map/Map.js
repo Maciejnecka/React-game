@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, Grid, Cell } from './Map.styled';
 import Player from '../Player';
 import { movePlayer, getPlayerPosition } from '../Actions/movement';
+import { mapConfig } from './config';
 
 const Map = () => {
-  const gridSize = 25;
   const [position, setPosition] = useState(getPlayerPosition());
 
   useEffect(() => {
@@ -28,11 +28,12 @@ const Map = () => {
   }, []);
 
   const cells = [];
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < gridSize; col++) {
+  for (let row = 0; row < mapConfig.height; row++) {
+    for (let col = 0; col < mapConfig.width; col++) {
       cells.push(<Cell key={`${row}-${col}`} />);
     }
   }
+
   return (
     <MapContainer>
       <Grid>
