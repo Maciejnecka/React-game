@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mapConfig } from './config';
+import { mapConfig } from './MapConfig';
 
 export const MapContainer = styled.div`
   width: 500px;
@@ -10,6 +10,7 @@ export const MapContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const Grid = styled.div`

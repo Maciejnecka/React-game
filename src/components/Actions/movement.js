@@ -1,4 +1,4 @@
-import { mapConfig } from '../Map/config';
+import { mapConfig } from '../Map/MapConfig';
 
 let playerPosition = { x: 0, y: 0 };
 
