@@ -3,6 +3,7 @@ import { MapContainer, Grid, Cell } from './Map.styled';
 import Player from '../Player';
 import Enemies from '../Enemies';
 import { movePlayer, getPlayerPosition } from '../Actions/movement';
+import { attackEnemy } from '../Actions/attack';
 import { mapConfig } from './MapConfig';
 import { enemiesConfig } from '../Enemies';
 
@@ -30,17 +31,18 @@ const Map = () => {
 
   useEffect(() => {
     setEnemies(generateEnemies());
+  }, []);
 
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if (
         ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
       ) {
-        movePlayer(event.key);
+        movePlayer(event.key, enemies);
         setPosition({ ...getPlayerPosition() });
       }
       if (event.key === ' ') {
-        // logika interakcji
-        console.log('Interaction triggered');
+        attackEnemy(position, enemies, setEnemies);
       }
     };
 
@@ -48,7 +50,7 @@ const Map = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [position, enemies]);
 
   const cells = [];
   for (let row = 0; row < mapConfig.height; row++) {
