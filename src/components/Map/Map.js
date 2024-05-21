@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, Grid, Cell } from './Map.styled';
 import Player from '../Player';
 import Enemies from '../Enemies';
-import { movePlayer, getPlayerPosition } from '../Actions/movement';
+import {
+  movePlayer,
+  getPlayerPosition,
+  moveEnemies,
+} from '../Actions/movement';
 import { attackEnemy } from '../Actions/attack';
 import { mapConfig } from './MapConfig';
-import { enemiesConfig } from '../Enemies';
+import { enemiesConfig } from '../Enemies/EnemiesConfig';
 
 const generateRandomPosition = () => {
   return {
@@ -31,7 +35,7 @@ const Map = () => {
 
   useEffect(() => {
     setEnemies(generateEnemies());
-  }, []);
+  }, []); // Pusta tablica zależności oznacza, że useEffect wykona się tylko raz, przy montowaniu komponentu
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -40,6 +44,7 @@ const Map = () => {
       ) {
         movePlayer(event.key, enemies);
         setPosition({ ...getPlayerPosition() });
+        setEnemies(moveEnemies(enemies));
       }
       if (event.key === ' ') {
         attackEnemy(position, enemies, setEnemies);
