@@ -10,6 +10,7 @@ import {
 import { attackEnemy } from '../Actions/attack';
 import { mapConfig } from './MapConfig';
 import { enemiesConfig } from '../Enemies/EnemiesConfig';
+import { playerStats } from '../Player/PlayerConfig';
 
 const generateRandomPosition = () => {
   return {
@@ -32,10 +33,11 @@ const generateEnemies = () => {
 const Map = () => {
   const [position, setPosition] = useState(getPlayerPosition());
   const [enemies, setEnemies] = useState([]);
+  const [playerHealth, setPlayerHealth] = useState(playerStats.health);
 
   useEffect(() => {
     setEnemies(generateEnemies());
-  }, []); // Pusta tablica zależności oznacza, że useEffect wykona się tylko raz, przy montowaniu komponentu
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -47,7 +49,7 @@ const Map = () => {
         setEnemies(moveEnemies(enemies));
       }
       if (event.key === ' ') {
-        attackEnemy(position, enemies, setEnemies);
+        attackEnemy(position, enemies, setEnemies, setPlayerHealth);
       }
     };
 
@@ -56,6 +58,12 @@ const Map = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [position, enemies]);
+
+  useEffect(() => {
+    if (playerHealth <= 0) {
+      alert('Game Over! The player has died.');
+    }
+  }, [playerHealth]);
 
   const cells = [];
   for (let row = 0; row < mapConfig.height; row++) {
@@ -68,7 +76,7 @@ const Map = () => {
     <MapContainer>
       <Grid>
         {cells}
-        <Player position={position} />
+        <Player position={position} health={playerHealth} />
         <Enemies enemies={enemies} />
       </Grid>
     </MapContainer>

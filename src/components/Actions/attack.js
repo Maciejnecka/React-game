@@ -6,7 +6,7 @@ const isAdjacent = (pos1, pos2) => {
   return dx + dy === 1;
 };
 
-const attackEnemy = (playerPosition, enemies, setEnemies) => {
+const attackEnemy = (playerPosition, enemies, setEnemies, setPlayerHealth) => {
   const updatedEnemies = enemies
     .map((enemy) => {
       if (isAdjacent(playerPosition, enemy.position)) {
@@ -18,6 +18,13 @@ const attackEnemy = (playerPosition, enemies, setEnemies) => {
         if (enemy.health <= 0) {
           console.log(`${enemy.name} defeated!`);
           return null;
+        } else {
+          const counterAttackDamage = enemy.stats.attack - playerStats.defense;
+          if (counterAttackDamage > 0) {
+            setPlayerHealth((prevHealth) =>
+              Math.max(prevHealth - counterAttackDamage, 0)
+            );
+          }
         }
       }
       return enemy;

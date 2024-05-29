@@ -1,5 +1,5 @@
 import React from 'react';
-import { EnemyStyled, EnemyName } from './Enemies.styled';
+import { EnemyStyled, EnemyName, EnemyHealth } from './Enemies.styled';
 
 const Enemies = ({ enemies }) => {
   return (
@@ -13,6 +13,7 @@ const Enemies = ({ enemies }) => {
           }}
         >
           <EnemyName>{enemy.name}</EnemyName>
+          <EnemyHealth>{enemy.health}</EnemyHealth>
         </EnemyStyled>
       ))}
     </>
